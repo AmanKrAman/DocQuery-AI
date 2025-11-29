@@ -2,6 +2,13 @@
 
 AI-powered document search system. Upload documents and get intelligent answers to your questions using advanced retrieval techniques.
 
+## 🎥 Demo Video
+
+<video width="100%" controls>
+  <source src="rag_doc_search.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
 ## Setup
 
 1. **Install dependencies:**
