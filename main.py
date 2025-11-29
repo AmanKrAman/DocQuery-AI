@@ -3,7 +3,7 @@ import os
 
 from src.api.upload import router as upload_router
 from src.api.query import router as query_router
-# from src.api.files import router as files_router
+from src.api.files import router as files_router
 
 app = FastAPI(title="RAG Document Search API")
 
@@ -12,7 +12,7 @@ os.makedirs("data/vector_db", exist_ok=True)
 
 app.include_router(upload_router, tags=["Upload"])
 app.include_router(query_router, tags=["Query"])
-# app.include_router(files_router, tags=["Files"])
+app.include_router(files_router, tags=["Files"])
 
 
 @app.get("/")
