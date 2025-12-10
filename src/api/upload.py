@@ -17,10 +17,10 @@ async def upload_file(file: UploadFile = File(...)):
     try:
         file_extension = Path(file.filename).suffix.lower()
         print(f"Received file: {file.filename} with extension: {file_extension}")
-        if file_extension not in [".txt", ".pdf"]:
+        if file_extension not in [".txt", ".pdf", ".jpg", ".jpeg", ".png"]:
             raise HTTPException(
                 status_code=400, 
-                detail="Only .txt and .pdf files allowed"
+                detail="Only .txt, .pdf, .jpg, .jpeg, and .png files allowed"
             )
         
         unique_id = generate_unique_id(10)

@@ -1,15 +1,8 @@
-"""
-Agentic Chunking - AI-powered intelligent text splitting
-Uses LLM to understand context and split at natural boundaries
-"""
-
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-
-
 class AgenticChunker:
     def __init__(self, model_name="llama-3.3-70b-versatile", chunk_size=500):
        
@@ -21,16 +14,11 @@ class AgenticChunker:
         self.chunk_size = chunk_size
         
     def chunk_text(self, text: str) -> list[str]:
-        print(f"🤖 Using AI to chunk text ({len(text)} chars)...")
-        
-        # If text is too large (>10000 chars), pre-split by paragraphs
         max_size = 10000
         if len(text) > max_size:
             print(f"⚠️ Text too large, pre-splitting into sections...")
-            # Split by double newlines (paragraphs)
             paragraphs = text.split('\n\n')
             
-            # Group paragraphs into ~10k char sections
             sections = []
             current_section = ""
             
@@ -45,23 +33,15 @@ class AgenticChunker:
             if current_section:
                 sections.append(current_section.strip())
             
-            print(f"📄 Split into {len(sections)} sections for AI processing")
-            
-            # Process each section with AI
             all_chunks = []
             for i, section in enumerate(sections):
-                print(f"   Processing section {i+1}/{len(sections)}...")
                 section_chunks = self._ai_chunk_section(section)
                 all_chunks.extend(section_chunks)
-            
-            print(f"✅ Created {len(all_chunks)} intelligent chunks")
             return all_chunks
         else:
-            # Small enough for direct AI processing
             return self._ai_chunk_section(text)
     
     def _ai_chunk_section(self, text: str) -> list[str]:
-        """Chunk a single section using AI"""
         prompt = f"""You are an expert at splitting text into logical chunks.
 
 Rules:
